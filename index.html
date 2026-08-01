@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Padel Scoreboard</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: system-ui, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background: #1a1a2e;
+      color: #eee;
+      gap: 2rem;
+    }
+    h1 { font-size: 1.75rem; letter-spacing: 0.05em; }
+    .board {
+      display: flex;
+      gap: 3rem;
+    }
+    .team {
+      text-align: center;
+    }
+    .team h2 { margin-bottom: 0.5rem; font-weight: 500; opacity: 0.7; }
+    .score {
+      font-size: 4rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      min-width: 4ch;
+    }
+    button {
+      padding: 0.6rem 1.4rem;
+      font-size: 1rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      background: #e94560;
+      color: #fff;
+    }
+    button:hover { background: #c73652; }
+    #reset-game {
+      background: #0f3460;
+    }
+    #reset-game:hover { background: #16213e; }
+  </style>
+</head>
+<body>
+  <h1>Padel Scoreboard</h1>
+  <div class="board">
+    <div class="team">
+      <h2>Team A</h2>
+      <div class="score" id="score-a">0</div>
+      <button id="add-team-a">+ Point</button>
+    </div>
+    <div class="team">
+      <h2>Team B</h2>
+      <div class="score" id="score-b">0</div>
+      <button id="add-team-b">+ Point</button>
+    </div>
+  </div>
+  <button id="reset-game">Reset</button>
+
+  <script>
+    const POINTS = ["0", "15", "30", "40", "Game!"];
+    let idxA = 0, idxB = 0;
+
+    const scoreA = document.getElementById("score-a");
+    const scoreB = document.getElementById("score-b");
+
+    document.getElementById("add-team-a").onclick = () => {
+      if (idxA < POINTS.length - 1) idxA++;
+      scoreA.textContent = POINTS[idxA];
+    };
+
+    document.getElementById("add-team-b").onclick = () => {
+      if (idxB < POINTS.length - 1) idxB++;
+      scoreB.textContent = POINTS[idxB];
+    };
+
+    document.getElementById("reset-game").onclick = () => {
+      idxA = 0;
+      idxB = 0;
+      scoreA.textContent = POINTS[0];
+      scoreB.textContent = POINTS[0];
+    };
+  </script>
+</body>
+</html>
