@@ -42,6 +42,11 @@
       color: #fff;
     }
     button:hover { background: #c73652; }
+    button:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+    button:disabled:hover { background: #e94560; }
     #reset-game {
       background: #0f3460;
     }
@@ -65,27 +70,51 @@
   <button id="reset-game">Reset</button>
 
   <script>
-    const POINTS = ["0", "15", "30", "40", "Game!"];
-    let idxA = 0, idxB = 0;
+    const POINT_LABELS = ["0", "15", "30", "40"];
+    let pointsA = 0, pointsB = 0;
+    let gameOver = false;
 
     const scoreA = document.getElementById("score-a");
     const scoreB = document.getElementById("score-b");
+    const btnA = document.getElementById("add-team-a");
+    const btnB = document.getElementById("add-team-b");
 
-    document.getElementById("add-team-a").onclick = () => {
-      if (idxA < POINTS.length - 1) idxA++;
-      scoreA.textContent = POINTS[idxA];
-    };
+    function hasWon(scorer, opponent) {
+      return scorer >= 4 && scorer - opponent >= 2;
+    }
 
-    document.getElementById("add-team-b").onclick = () => {
-      if (idxB < POINTS.length - 1) idxB++;
-      scoreB.textContent = POINTS[idxB];
-    };
+    function labelFor(me, opp) {
+      if (hasWon(me, opp)) return "Game!";
+      if (me >= 3 && opp >= 3) {
+        if (me === opp) return "Deuce";
+        return me > opp ? "Ad" : "40";
+      }
+      return POINT_LABELS[Math.min(me, 3)];
+    }
+
+    function render() {
+      scoreA.textContent = labelFor(pointsA, pointsB);
+      scoreB.textContent = labelFor(pointsB, pointsA);
+      btnA.disabled = gameOver;
+      btnB.disabled = gameOver;
+    }
+
+    function addPoint(team) {
+      if (gameOver) return;
+      if (team === "A") pointsA++;
+      else pointsB++;
+      if (hasWon(pointsA, pointsB) || hasWon(pointsB, pointsA)) gameOver = true;
+      render();
+    }
+
+    btnA.onclick = () => addPoint("A");
+    btnB.onclick = () => addPoint("B");
 
     document.getElementById("reset-game").onclick = () => {
-      idxA = 0;
-      idxB = 0;
-      scoreA.textContent = POINTS[0];
-      scoreB.textContent = POINTS[0];
+      pointsA = 0;
+      pointsB = 0;
+      gameOver = false;
+      render();
     };
   </script>
 </body>
