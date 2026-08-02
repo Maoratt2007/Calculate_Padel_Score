@@ -18,20 +18,10 @@
       gap: 2rem;
     }
     h1 { font-size: 1.75rem; letter-spacing: 0.05em; }
-    .board {
-      display: flex;
-      gap: 3rem;
-    }
-    .team {
-      text-align: center;
-    }
+    .board { display: flex; gap: 3rem; }
+    .team { text-align: center; }
     .team h2 { margin-bottom: 0.5rem; font-weight: 500; opacity: 0.7; }
-    .score {
-      font-size: 4rem;
-      font-weight: 700;
-      margin-bottom: 1rem;
-      min-width: 4ch;
-    }
+    .score { font-size: 4rem; font-weight: 700; margin-bottom: 1rem; min-width: 4ch; }
     button {
       padding: 0.6rem 1.4rem;
       font-size: 1rem;
@@ -42,9 +32,7 @@
       color: #fff;
     }
     button:hover { background: #c73652; }
-    #reset-game {
-      background: #0f3460;
-    }
+    #reset-game { background: #0f3460; }
     #reset-game:hover { background: #16213e; }
   </style>
 </head>
@@ -63,30 +51,6 @@
     </div>
   </div>
   <button id="reset-game">Reset</button>
-
-  <script>
-    const POINTS = ["0", "15", "30", "40", "Game!"];
-    let idxA = 0, idxB = 0;
-
-    const scoreA = document.getElementById("score-a");
-    const scoreB = document.getElementById("score-b");
-
-    document.getElementById("add-team-a").onclick = () => {
-      if (idxA < POINTS.length - 1) idxA++;
-      scoreA.textContent = POINTS[idxA];
-    };
-
-    document.getElementById("add-team-b").onclick = () => {
-      if (idxB < POINTS.length - 1) idxB++;
-      scoreB.textContent = POINTS[idxB];
-    };
-
-    document.getElementById("reset-game").onclick = () => {
-      idxA = 0;
-      idxB = 0;
-      scoreA.textContent = POINTS[0];
-      scoreB.textContent = POINTS[0];
-    };
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
