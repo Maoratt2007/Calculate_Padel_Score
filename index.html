@@ -18,20 +18,10 @@
       gap: 2rem;
     }
     h1 { font-size: 1.75rem; letter-spacing: 0.05em; }
-    .board {
-      display: flex;
-      gap: 3rem;
-    }
-    .team {
-      text-align: center;
-    }
+    .board { display: flex; gap: 3rem; }
+    .team { text-align: center; }
     .team h2 { margin-bottom: 0.5rem; font-weight: 500; opacity: 0.7; }
-    .score {
-      font-size: 4rem;
-      font-weight: 700;
-      margin-bottom: 1rem;
-      min-width: 4ch;
-    }
+    .score { font-size: 4rem; font-weight: 700; margin-bottom: 1rem; min-width: 4ch; }
     button {
       padding: 0.6rem 1.4rem;
       font-size: 1rem;
@@ -42,14 +32,7 @@
       color: #fff;
     }
     button:hover { background: #c73652; }
-    button:disabled {
-      opacity: 0.4;
-      cursor: not-allowed;
-    }
-    button:disabled:hover { background: #e94560; }
-    #reset-game {
-      background: #0f3460;
-    }
+    #reset-game { background: #0f3460; }
     #reset-game:hover { background: #16213e; }
   </style>
 </head>
@@ -68,54 +51,6 @@
     </div>
   </div>
   <button id="reset-game">Reset</button>
-
-  <script>
-    const POINT_LABELS = ["0", "15", "30", "40"];
-    let pointsA = 0, pointsB = 0;
-    let gameOver = false;
-
-    const scoreA = document.getElementById("score-a");
-    const scoreB = document.getElementById("score-b");
-    const btnA = document.getElementById("add-team-a");
-    const btnB = document.getElementById("add-team-b");
-
-    function hasWon(scorer, opponent) {
-      return scorer >= 4 && scorer - opponent >= 2;
-    }
-
-    function labelFor(me, opp) {
-      if (hasWon(me, opp)) return "Game!";
-      if (me >= 3 && opp >= 3) {
-        if (me === opp) return "Deuce";
-        return me > opp ? "Ad" : "40";
-      }
-      return POINT_LABELS[Math.min(me, 3)];
-    }
-
-    function render() {
-      scoreA.textContent = labelFor(pointsA, pointsB);
-      scoreB.textContent = labelFor(pointsB, pointsA);
-      btnA.disabled = gameOver;
-      btnB.disabled = gameOver;
-    }
-
-    function addPoint(team) {
-      if (gameOver) return;
-      if (team === "A") pointsA++;
-      else pointsB++;
-      if (hasWon(pointsA, pointsB) || hasWon(pointsB, pointsA)) gameOver = true;
-      render();
-    }
-
-    btnA.onclick = () => addPoint("A");
-    btnB.onclick = () => addPoint("B");
-
-    document.getElementById("reset-game").onclick = () => {
-      pointsA = 0;
-      pointsB = 0;
-      gameOver = false;
-      render();
-    };
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
