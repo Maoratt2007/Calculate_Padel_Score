@@ -1,6 +1,7 @@
 services:
   web:
     container_name: padel_scoreboard
+    image: app
     build: .
     ports:
       - "80:3000"
